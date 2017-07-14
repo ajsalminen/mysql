@@ -17,7 +17,7 @@
   mysql_variables:
     variable: innodb_fast_shutdown
   register: mysql_current_innodb_fast_shutdown
-  when: innodb_log_file_size_changed.rc == 1 and (mysql_version.msg[0:5] | version_compare('5.6.8', 'lt'))
+  when: innodb_log_file_size_changed.rc == 1 and (mysql_version.msg | version_compare('5.6.8', 'lt'))
   failed_when: mysql_current_innodb_fast_shutdown.msg == "2"
   always_run: yes
 
@@ -33,4 +33,4 @@
 
 - name: MySQL | Remove InnoDB log files if size is changed (pre-MySQL 5.6.8).
   include: rebuild_ib_logfile.yml
-  when: innodb_log_file_size_changed.rc == 1 and (mysql_version.msg[0:5] | version_compare('5.6.8', 'lt'))
+  when: innodb_log_file_size_changed.rc == 1 and (mysql_version.msg | version_compare('5.6.8', 'lt'))
