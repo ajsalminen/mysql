@@ -5,13 +5,13 @@
   register: innodb_log_file_size_changed
   changed_when: "innodb_log_file_size_changed.rc != 0"
   failed_when: "innodb_log_file_size_changed.rc >= 2"
-  always_run: yes
+  check_mode: no
 
 - name: MySQL | Get MySQL version.
   mysql_variables:
     variable: version
   register: mysql_version
-  always_run: yes
+  check_mode: no
 
 - name: MySQL | Ensure innodb_fast_shutdown is not 2 if changing InnoDB log size.
   mysql_variables:
@@ -19,7 +19,7 @@
   register: mysql_current_innodb_fast_shutdown
   when: innodb_log_file_size_changed.rc == 1 and (mysql_version.msg | version_compare('5.6.8', 'lt'))
   failed_when: mysql_current_innodb_fast_shutdown.msg == "2"
-  always_run: yes
+  check_mode: no
 
 - name: MySQL | Update the my.cnf
   template:
