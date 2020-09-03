@@ -52,6 +52,6 @@ mysql_users: []
 
 # List of apt packages to install
 mysql_packages:
-  - mysql-server
-  - mysql-client
+  - default-mysql-server
+  - default-mysql-client
   - python-mysqldb
