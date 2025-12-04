@@ -32,5 +32,5 @@
     - restart mysql
 
 - name: MySQL | Remove InnoDB log files if size is changed (pre-MySQL 5.6.8).
-  include: rebuild_ib_logfile.yml
+  include_tasks: rebuild_ib_logfile.yml
   when: innodb_log_file_size_changed.rc == 1 and (mysql_version.msg is version('5.6.8', 'lt'))
